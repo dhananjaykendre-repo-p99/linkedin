@@ -106,3 +106,15 @@ The LinkedIn Platform leverages several foundational Design Patterns to enforce 
 
 ### UML Sequence Diagram
 ![UML Sequence Diagram](docs/sequence_diagram.png)
+
+### UML Use Case Diagram
+![UML Use Case Diagram](docs/use_case_diagram.png)
+
+### UML Activity Diagram (News Feed & Notification Flow)
+![UML Activity Diagram](docs/activity_diagram.png)
+
+### UML Component Diagram (System Modules & Database Topology)
+![UML Component Diagram](docs/component_diagram.png)
+
+### UML Deployment Diagram (AWS Infrastructure Topology)
+![UML Deployment Diagram](docs/deployment_diagram.png)
