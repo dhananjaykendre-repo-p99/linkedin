@@ -68,3 +68,12 @@ class LinkedInSystem:
 
     def search_member_by_name(self, name: str) -> List[Member]:
         return self.search_service.search_by_name(name)
+
+    def get_member_by_email(self, email: str) -> Optional[Member]:
+        for member in self.members.values():
+            if member.get_email().lower() == email.lower():
+                return member
+        return None
+
+    def reject_connection_request(self, request_id: str) -> None:
+        self.connection_service.reject_request(request_id)

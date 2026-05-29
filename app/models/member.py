@@ -7,10 +7,11 @@ from app.models.education import Education
 import uuid
 
 class Member(NotificationObserver):
-    def __init__(self, member_id: str, name: str, email: str, profile: Profile):
+    def __init__(self, member_id: str, name: str, email: str, profile: Profile, password: str = ""):
         self.id = member_id
         self.name = name
         self.email = email
+        self.password = password
         self.profile = profile
         self.connections: Set['Member'] = set()
         self.notifications: List['Notification'] = []
@@ -59,6 +60,7 @@ class Member(NotificationObserver):
             self.id = str(uuid.uuid4())
             self.name = name
             self.email = email
+            self.password = ""
             self.profile = Profile()
 
         def with_summary(self, summary: str) -> 'Member.Builder':
@@ -73,5 +75,9 @@ class Member(NotificationObserver):
             self.profile.add_education(education)
             return self
 
+        def with_password(self, password: str) -> 'Member.Builder':
+            self.password = password
+            return self
+
         def build(self) -> 'Member':
-            return Member(self.id, self.name, self.email, self.profile)
+            return Member(self.id, self.name, self.email, self.profile, self.password)

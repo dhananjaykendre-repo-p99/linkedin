@@ -48,3 +48,17 @@ class ConnectionService:
                 del self.connection_requests[request_id]
             else:
                 print("Invalid or already handled request ID.")
+
+    def reject_request(self, request_id: str) -> None:
+        with self.lock:
+            request = self.connection_requests.get(request_id)
+            
+            if request and request.get_status() == ConnectionStatus.PENDING:
+                request.set_status(ConnectionStatus.REJECTED)
+                from_member = request.get_from_member()
+                to_member = request.get_to_member()
+
+                print(f"{to_member.get_name()} rejected the connection request from {from_member.get_name()}.")
+                del self.connection_requests[request_id]
+            else:
+                print("Invalid or already handled request ID.")

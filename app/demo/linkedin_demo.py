@@ -9,7 +9,6 @@ class LinkedInDemo:
     def main():
         system = LinkedInSystem.get_instance()
 
-        # 1. Create Members using the Builder Pattern
         print("--- 1. Member Registration ---")
         alice = Member.Builder("Alice", "alice@example.com") \
             .with_summary("Senior Software Engineer with 10 years of experience.") \
@@ -32,40 +31,32 @@ class LinkedInDemo:
 
         alice.display_profile()
 
-        # 2. Connection Management
         print("\n--- 2. Connection Management ---")
-        # Alice sends requests to Bob and Charlie
         request_id1 = system.send_connection_request(alice, bob)
         request_id2 = system.send_connection_request(alice, charlie)
 
-        bob.view_notifications()  # Bob sees Alice's request
+        bob.view_notifications()
 
         print("\nBob accepts Alice's request.")
         system.accept_connection_request(request_id1)
         print("Alice and Bob are now connected.")
 
-        # 3. Posting and News Feed
         print("\n--- 3. Posting & News Feed ---")
-        bob.display_profile()  # Bob has 1 connection
+        bob.display_profile()
         system.create_post(bob.get_id(), "Excited to share we've launched our new feature! #productmanagement")
 
-        # Alice views her news feed. She should see Bob's post.
         system.view_news_feed(alice.get_id())
 
-        # Charlie views his feed. It should be empty as he is not connected to anyone.
         system.view_news_feed(charlie.get_id())
 
-        # 4. Interacting with a Post (Observer Pattern in action)
         print("\n--- 4. Post Interaction & Notifications ---")
         bobs_post = system.get_latest_post_by_member(bob.get_id())
         if bobs_post:
             bobs_post.add_like(alice)
             bobs_post.add_comment(alice, "This looks amazing! Great work!")
 
-        # Bob checks his notifications. He should see a like and a comment from Alice.
         bob.view_notifications()
 
-        # 5. Searching for Members
         print("\n--- 5. Member Search ---")
         search_results = system.search_member_by_name("ali")
         print("Search results for 'ali':")
